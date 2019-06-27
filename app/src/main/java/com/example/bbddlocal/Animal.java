@@ -2,11 +2,13 @@ package com.example.bbddlocal;
 
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
+import android.arch.persistence.room.TypeConverters;
 import android.support.annotation.NonNull;
 
 import java.util.Date;
 
 @Entity
+@TypeConverters(DateConverter.class)
 public class Animal {
     @PrimaryKey
     @NonNull

@@ -5,13 +5,17 @@ import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Delete;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.Query;
+import android.arch.persistence.room.TypeConverters;
 import android.arch.persistence.room.Update;
 
 import java.util.List;
+import java.util.Date;
+
 
 import static android.arch.persistence.room.OnConflictStrategy.IGNORE;
 
 @Dao
+@TypeConverters(DateConverter.class)
 public interface AnimalDao {
     @Query("select * from animal")
     LiveData<List<Animal>> findAllAnimals();
@@ -34,7 +38,7 @@ public interface AnimalDao {
     int deleteAnimalbyId(int id);
 
     @Query("delete from animal where name = :name")
-    String deleteAnimalByName(String name);
+    int deleteAnimalByName(String name);
 
     @Query("DELETE FROM animal")
     void deleteAll();
