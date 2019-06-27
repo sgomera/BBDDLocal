@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">BBDDLocal</string>
+    <string name="refresh">Refresh</string>
+    <string name="title">Title</string>
 </resources>
