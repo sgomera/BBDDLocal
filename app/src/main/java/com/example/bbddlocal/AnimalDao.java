@@ -1,0 +1,49 @@
+package com.example.bbddlocal;
+
+import android.arch.lifecycle.LiveData;
+import android.arch.persistence.room.Dao;
+import android.arch.persistence.room.Delete;
+import android.arch.persistence.room.Insert;
+import android.arch.persistence.room.Query;
+import android.arch.persistence.room.Update;
+
+import java.util.List;
+
+import static android.arch.persistence.room.OnConflictStrategy.IGNORE;
+
+@Dao
+public interface AnimalDao {
+    @Query("select * from animal")
+    LiveData<List<Animal>> findAllAnimals();
+
+    @Query("select * from animal where id = :id")
+    Animal findAnimalById(int id);
+
+    @Query("select * from animal where name = :name")
+    LiveData<List<Animal>> findAnimalByName(String name);
+
+    //insert---------------------------
+    @Insert(onConflict = IGNORE)
+    void insertAnimal(Animal animal);
+
+    //delete---------------------------
+    @Delete
+    void deleteAnimal(Animal animal);
+
+    @Query("delete from animal where id = :id")
+    int deleteAnimalbyId(int id);
+
+    @Query("delete from animal where name = :name")
+    String deleteAnimalByName(String name);
+
+    @Query("DELETE FROM animal")
+    void deleteAll();
+
+    //update--------------------------
+    @Update
+    void updateAnimal(Animal animal);
+
+
+
+
+}
