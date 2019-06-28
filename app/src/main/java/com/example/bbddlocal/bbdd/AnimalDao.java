@@ -18,12 +18,12 @@ import static android.arch.persistence.room.OnConflictStrategy.IGNORE;
 @Dao
 @TypeConverters(DateConverter.class)
 public interface AnimalDao {
-    //USING VIEWMODEL TODO: uncomment when using viewmodel and comment next query
-    /*@Query("select * from animal")
-    LiveData<List<Animal>> findAllAnimals();*/
+    //USING VIEWMODEL
+    @Query("select * from animal order by regDate Desc")
+    LiveData<List<Animal>> findAllAnimals();
 
-    @Query("select * from animal")
-    List<Animal> findAllAnimals();
+/*    @Query("select * from animal")
+    List<Animal> findAllAnimals();*/
 
     @Query("select * from animal order by regDate Desc")
     List<Animal> findAllAnimalsOrderedByDateDesc();

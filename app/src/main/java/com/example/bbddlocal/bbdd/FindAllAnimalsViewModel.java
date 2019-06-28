@@ -11,15 +11,15 @@ import java.util.List;
 
 public class FindAllAnimalsViewModel extends AndroidViewModel {
 
-  //TODO uncomment when using viewmodel
-  //  public final LiveData<List<Animal>> animals;
+    public final LiveData<List<Animal>> animals;
 
     private AppDatabase mDb;
 
     public FindAllAnimalsViewModel(@NonNull Application application) {
         super(application);
-    //TODO uncomment when using viewmodel
-   //     animals = mDb.animalModel().findAllAnimals();
+        createDb();
+
+        animals = mDb.animalModel().findAllAnimals();
 
     }
 
