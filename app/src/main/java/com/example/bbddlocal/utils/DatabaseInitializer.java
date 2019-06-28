@@ -18,9 +18,6 @@ public class DatabaseInitializer {
         task.execute();
     }
 
-   /* public static void populateSync(@NonNull final AppDatabase db) {
-        populateWithTestData(db);
-    }*/
 
    //without using ViewModel:
     public static void populateSync(@NonNull final AppDatabase db) {
@@ -61,9 +58,9 @@ public class DatabaseInitializer {
 
         //TODO improve registerDate calculation and formatting
 
-        Animal animal1 = addAnimal(db, 1,"Teddy", 3, true, "dog",today,"photoTeedy");
+        Animal animal1 = addAnimal(db, 1,"Teddy", 3, true, "dog",lastWeek,"photoTeedy");
         Animal animal2 = addAnimal(db, 2,"Nemo", 1, false, "fish",yesterday,"photoNemo");
-        Animal animal3 = addAnimal(db, 3,"Catty", 2, true, "cat",lastWeek,"photoCatty");
+        Animal animal3 = addAnimal(db, 3,"Catty", 2, true, "cat",today,"photoCatty");
 
     }
 

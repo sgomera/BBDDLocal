@@ -25,6 +25,9 @@ public interface AnimalDao {
     @Query("select * from animal")
     List<Animal> findAllAnimals();
 
+    @Query("select * from animal order by regDate Desc")
+    List<Animal> findAllAnimalsOrderedByDateDesc();
+
     @Query("select * from animal where id = :id")
     Animal findAnimalById(int id);
 

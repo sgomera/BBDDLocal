@@ -5,6 +5,7 @@ import android.arch.lifecycle.Observer;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Html;
 import android.view.View;
 import android.widget.TextView;
 import android.arch.lifecycle.ViewModelProviders;
@@ -14,6 +15,9 @@ import com.example.bbddlocal.bbdd.AppDatabase;
 import com.example.bbddlocal.bbdd.FindAllAnimalsViewModel;
 import com.example.bbddlocal.utils.DatabaseInitializer;
 
+
+import java.sql.Date;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Locale;
 
@@ -59,13 +63,38 @@ public class MainActivity extends AppCompatActivity {
     private void fetchData() {
         // Note: this kind of logic should not be in an activity.
         StringBuilder sb = new StringBuilder();
+
         //TODO when using viewmodel change next Statement to LiveData<List<Animal>>
-        List<Animal> animals = mDb.animalModel().findAllAnimals();
+        List<Animal> animals = mDb.animalModel().findAllAnimalsOrderedByDateDesc();
+
+        java.text.SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy",
+                Locale.FRENCH);
         for (Animal animal : animals) {
-            sb.append(String.format(Locale.US,
-                    "%s, %s (%d)\n", animal.name, animal.animalType, animal.age));
+            if (animal.isChipped){
+                sb.append("<font color='blue'>");
+                sb.append("<strong>");
+                sb.append(String.format(Locale.FRENCH,"%s",animal.name));
+                sb.append("</strong>");
+                sb.append("<br>");
+                sb.append("</font>");
+                sb.append("<font color='black'>");
+                sb.append(String.format(Locale.FRENCH, "%s", simpleDateFormat.format(animal.regDate)));
+                sb.append("<br>");
+                sb.append("<br>");
+                sb.append("</font>");
+            } else {
+                sb.append("<font color='grey'>");
+                sb.append(String.format(Locale.FRENCH, "%s", animal.name));
+                sb.append("<br>");
+                sb.append("</font>");
+                sb.append("<font color='black'>");
+                sb.append(String.format(Locale.FRENCH, "%s", simpleDateFormat.format(animal.regDate)));
+                sb.append("<br>");
+                sb.append("<br>");
+                sb.append("</font>");
+            }
         }
-        mAnimalsTextView.setText(sb);
+        mAnimalsTextView.setText(Html.fromHtml(sb.toString()));
     }
     //USING VIEWMODEL---------------------------------------------------------
     /*private void subscribeUiAnimals() {
