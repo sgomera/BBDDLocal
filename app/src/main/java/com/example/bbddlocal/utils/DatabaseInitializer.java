@@ -20,9 +20,11 @@ public class DatabaseInitializer {
 
 
    //without using ViewModel:
-    public static void populateSync(@NonNull final AppDatabase db) {
+    /*public static void populateSync(@NonNull final AppDatabase db) {
         populateWithTestData(db);
-    }
+    }*/
+
+
     private static Animal addAnimal(final AppDatabase db,
                                     final int id,
                                     final String name,

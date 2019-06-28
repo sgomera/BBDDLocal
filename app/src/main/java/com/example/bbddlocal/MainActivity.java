@@ -53,11 +53,14 @@ public class MainActivity extends AppCompatActivity {
 
     //USING VIEWMODEL---------------------------------------------------------
     public void onRefreshBtClicked(View view) {
+        mAnimalsTextView.setText("");
+        fetchData();
      //   mViewModel.createDb();
     }
 
     private void populateDb() {
-        DatabaseInitializer.populateSync(mDb);
+       // DatabaseInitializer.populateSync(mDb);
+        DatabaseInitializer.populateAsync(mDb);
     }
 
     private void fetchData() {
