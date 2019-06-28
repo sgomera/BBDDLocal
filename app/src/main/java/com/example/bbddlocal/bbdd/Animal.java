@@ -1,9 +1,11 @@
-package com.example.bbddlocal;
+package com.example.bbddlocal.bbdd;
 
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 import android.arch.persistence.room.TypeConverters;
 import android.support.annotation.NonNull;
+
+import com.example.bbddlocal.utils.DateConverter;
 
 import java.util.Date;
 
@@ -12,7 +14,7 @@ import java.util.Date;
 public class Animal {
     @PrimaryKey
     @NonNull
-    public int id;
+    public int id;//TODO how to autoincrement the ID??
 
     public String name;
 

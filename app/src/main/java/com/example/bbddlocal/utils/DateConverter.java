@@ -1,4 +1,4 @@
-package com.example.bbddlocal;
+package com.example.bbddlocal.utils;
 
 import android.arch.persistence.room.TypeConverter;
 

@@ -1,4 +1,4 @@
-package com.example.bbddlocal;
+package com.example.bbddlocal.bbdd;
 
 import android.arch.lifecycle.LiveData;
 import android.arch.persistence.room.Dao;
@@ -8,8 +8,9 @@ import android.arch.persistence.room.Query;
 import android.arch.persistence.room.TypeConverters;
 import android.arch.persistence.room.Update;
 
+import com.example.bbddlocal.utils.DateConverter;
+
 import java.util.List;
-import java.util.Date;
 
 
 import static android.arch.persistence.room.OnConflictStrategy.IGNORE;
@@ -17,8 +18,12 @@ import static android.arch.persistence.room.OnConflictStrategy.IGNORE;
 @Dao
 @TypeConverters(DateConverter.class)
 public interface AnimalDao {
+    //USING VIEWMODEL TODO: uncomment when using viewmodel and comment next query
+    /*@Query("select * from animal")
+    LiveData<List<Animal>> findAllAnimals();*/
+
     @Query("select * from animal")
-    LiveData<List<Animal>> findAllAnimals();
+    List<Animal> findAllAnimals();
 
     @Query("select * from animal where id = :id")
     Animal findAnimalById(int id);

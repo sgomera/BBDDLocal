@@ -17,23 +17,30 @@
 
 
             <TextView
+                android:id="@+id/title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/title"
-                android:textSize="24sp" />
+                android:textSize="24sp"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:paddingTop="16dp"/>
 
             <TextView
                 android:id="@+id/animals_tv"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingStart="8dp" />
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"/>
 
             <Button
                 android:id="@+id/button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:onClick="onRefreshBtClicked"
-                android:text="@string/refresh" />
+                android:text="@string/refresh"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"/>
 
         </LinearLayout>
 

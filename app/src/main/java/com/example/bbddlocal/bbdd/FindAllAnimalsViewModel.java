@@ -1,4 +1,4 @@
-package com.example.bbddlocal;
+package com.example.bbddlocal.bbdd;
 
 import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
@@ -9,16 +9,17 @@ import com.example.bbddlocal.utils.DatabaseInitializer;
 
 import java.util.List;
 
-public class AnimalsViewModel extends AndroidViewModel {
+public class FindAllAnimalsViewModel extends AndroidViewModel {
 
-    public final LiveData<List<Animal>> animals;
+  //TODO uncomment when using viewmodel
+  //  public final LiveData<List<Animal>> animals;
 
     private AppDatabase mDb;
 
-    public AnimalsViewModel(@NonNull Application application) {
+    public FindAllAnimalsViewModel(@NonNull Application application) {
         super(application);
-
-        animals = mDb.animalModel().findAnimalByName("Nemo");
+    //TODO uncomment when using viewmodel
+   //     animals = mDb.animalModel().findAllAnimals();
 
     }
 

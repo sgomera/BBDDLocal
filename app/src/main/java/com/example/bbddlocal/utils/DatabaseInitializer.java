@@ -2,10 +2,9 @@ package com.example.bbddlocal.utils;
 
 import android.os.AsyncTask;
 import android.support.annotation.NonNull;
-import android.util.Log;
 
-import com.example.bbddlocal.Animal;
-import com.example.bbddlocal.AppDatabase;
+import com.example.bbddlocal.bbdd.Animal;
+import com.example.bbddlocal.bbdd.AppDatabase;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -23,14 +22,17 @@ public class DatabaseInitializer {
         populateWithTestData(db);
     }*/
 
-
+   //without using ViewModel:
+    public static void populateSync(@NonNull final AppDatabase db) {
+        populateWithTestData(db);
+    }
     private static Animal addAnimal(final AppDatabase db,
                                     final int id,
                                     final String name,
                                     final int age,
                                     final boolean isChipped,
                                     final String animalType,
-                        //            final Date regDate,
+                                    final Date regDate,
                                     final String photo
                                     ) {
 
@@ -40,7 +42,7 @@ public class DatabaseInitializer {
         animal.age = age;
         animal.isChipped = isChipped;
         animal.animalType = animalType;
-   //     animal.regDate = regDate; //TODO @TypeConverter
+        animal.regDate = regDate;
         animal.photo = photo;
 
         db.animalModel().insertAnimal(animal);
@@ -50,9 +52,18 @@ public class DatabaseInitializer {
     private static void populateWithTestData(AppDatabase db) {
         db.animalModel().deleteAll();
 
-        Animal animal1 = addAnimal(db, 1,"Teddy", 3, true, "dog","photoTeedy");
-        Animal animal2 = addAnimal(db, 2,"Nemo", 1, false, "fish","photoNemo");
-        Animal animal3 = addAnimal(db, 2,"Catty", 2, true, "cat","photoCatty");
+
+        Date today = getTodayPlusDays(0);
+        Date yesterday = getTodayPlusDays(-1);
+        Date twoDaysAgo = getTodayPlusDays(-2);
+        Date lastWeek = getTodayPlusDays(-7);
+        Date twoWeeksAgo = getTodayPlusDays(-14);
+
+        //TODO improve registerDate calculation and formatting
+
+        Animal animal1 = addAnimal(db, 1,"Teddy", 3, true, "dog",today,"photoTeedy");
+        Animal animal2 = addAnimal(db, 2,"Nemo", 1, false, "fish",yesterday,"photoNemo");
+        Animal animal3 = addAnimal(db, 3,"Catty", 2, true, "cat",lastWeek,"photoCatty");
 
     }
 

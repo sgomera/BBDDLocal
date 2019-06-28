@@ -1,4 +1,4 @@
-package com.example.bbddlocal;
+package com.example.bbddlocal.bbdd;
 
 import android.arch.persistence.room.Database;
 import android.arch.persistence.room.Room;
