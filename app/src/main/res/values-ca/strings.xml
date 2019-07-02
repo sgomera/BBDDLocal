@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">BBDDLocal</string>
+    <string name="create">Crea</string>
+    <string name="refresh">Refresca</string>
+    <string name="title">Tots els animals</string>
+</resources>

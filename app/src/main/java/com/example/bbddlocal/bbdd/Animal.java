@@ -13,7 +13,6 @@ import java.util.Date;
 @TypeConverters(DateConverter.class)
 public class Animal {
     @PrimaryKey
-    @NonNull
     public int id;//TODO how to autoincrement the ID??
 
     public String name;

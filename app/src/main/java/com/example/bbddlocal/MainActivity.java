@@ -2,6 +2,7 @@ package com.example.bbddlocal;
 
 
 import android.arch.lifecycle.Observer;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -141,4 +142,17 @@ public class MainActivity extends AppCompatActivity {
         }
         mAnimalsTextView.setText(Html.fromHtml(sb.toString()));
     }*/
+
+
+    public void onClickCreate (View view){
+        Intent intent = new Intent(this, CreateAnimalActivity.class);
+        startActivity(intent);
+
+    }
+
+    public void onClickSearch (View view){
+        Intent intent = new Intent(this, SearchAnimalActivity.class);
+        startActivity(intent);
+
+    }
 }
