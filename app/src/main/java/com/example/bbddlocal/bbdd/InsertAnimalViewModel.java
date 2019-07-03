@@ -16,16 +16,16 @@ public class InsertAnimalViewModel extends AndroidViewModel {
 
     public InsertAnimalViewModel(@NonNull Application application) {
         super(application);
+
+        getDb();
+
         //com viatgen les dades desde la classe al viewmodel??
        // animal = mDb.animalModel().insertAnimal();
 
     }
 
-    public void createDb() {
+    public void getDb() {
         mDb = AppDatabase.getInMemoryDatabase(this.getApplication());
-
-        // Populate it with initial data
-        DatabaseInitializer.populateAsync(mDb);
     }
 
     public void InsertAnimal(Animal animal){

@@ -22,7 +22,7 @@ public class FindAnimalViewModel extends AndroidViewModel {
     //this works but searching for all the animals, not only the one with the name the user entered:
     public  FindAnimalViewModel(@NonNull Application application) {
         super(application);
-        createDb();
+        getDb();
 
         animals = mDb.animalModel().findAllAnimals();
 
@@ -30,11 +30,9 @@ public class FindAnimalViewModel extends AndroidViewModel {
 
 
 
-    public void createDb() {
+    public void getDb() {
         mDb = AppDatabase.getInMemoryDatabase(this.getApplication());
 
-        // It is already populated with the initial data, since the mainActivity
-     //   DatabaseInitializer.populateAsync(mDb);
     }
 
 }

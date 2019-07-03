@@ -1,5 +1,6 @@
 package com.example.bbddlocal.bbdd;
 
+import android.app.Application;
 import android.arch.persistence.room.Database;
 import android.arch.persistence.room.Room;
 import android.arch.persistence.room.RoomDatabase;
@@ -9,6 +10,7 @@ import android.content.Context;
 public abstract class AppDatabase extends RoomDatabase {
 
     private static AppDatabase INSTANCE;
+
 
     public abstract AnimalDao animalModel();
 
