@@ -3,6 +3,7 @@ package com.example.bbddlocal.bbdd;
 import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.LiveData;
+import android.arch.persistence.room.Room;
 import android.support.annotation.NonNull;
 
 import com.example.bbddlocal.utils.DatabaseInitializer;
@@ -28,5 +29,10 @@ public class FindAllAnimalsViewModel extends AndroidViewModel {
 
         // Populate it with initial data
         DatabaseInitializer.populateAsync(mDb);
+
+
+
     }
+
+
 }

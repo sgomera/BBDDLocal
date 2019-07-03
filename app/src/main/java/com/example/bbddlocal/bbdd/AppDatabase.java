@@ -12,9 +12,9 @@ public abstract class AppDatabase extends RoomDatabase {
 
     public abstract AnimalDao animalModel();
 
-//TODO: modify this part of the code to not allow queries on main thread
+//modified this part of the code to not allow queries on main thread
     public static AppDatabase getInMemoryDatabase(Context context) {
-        if (INSTANCE == null) {
+        /*if (INSTANCE == null) {
             INSTANCE =
                     Room.inMemoryDatabaseBuilder(context.getApplicationContext(), AppDatabase.class)
                             // To simplify the codelab, allow queries on the main thread.
@@ -22,21 +22,21 @@ public abstract class AppDatabase extends RoomDatabase {
                             .allowMainThreadQueries()
                             .build();
         }
+        return INSTANCE;*/
+
+        if (INSTANCE == null) {
+            synchronized (AppDatabase.class) {
+                if (INSTANCE == null) {
+                    INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
+                            AppDatabase.class, "word_database")
+                            .build();
+                }
+            }
+        }
         return INSTANCE;
     }
 
 
-/*    public static AppDatabase getInstance(final Context context, final AppExecutors executors) {
-        if (sInstance == null) {
-            synchronized (AppDatabase.class) {
-                if (sInstance == null) {
-                    sInstance = buildDatabase(context.getApplicationContext(), executors);
-                    sInstance.updateDatabaseCreated(context.getApplicationContext());
-                }
-            }
-        }
-        return sInstance;
-    }*/
 
     public static void destroyInstance() {
         INSTANCE = null;
