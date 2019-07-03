@@ -23,8 +23,6 @@ import java.util.Locale;
 public class MainActivity extends AppCompatActivity {
     private AppDatabase mDb;
     private TextView mAnimalsTextView;
-
-    //USING VIEWMODEL
     private FindAllAnimalsViewModel mViewModel;
 
 
@@ -35,12 +33,6 @@ public class MainActivity extends AppCompatActivity {
 
         mAnimalsTextView = (TextView) findViewById(R.id.animals_tv);
 
-      /*  // Note: Db references should not be in an activity.
-        mDb = AppDatabase.getInMemoryDatabase(getApplicationContext());
-        populateDb();
-        fetchData();*/
-
-        //USING VIEWMODEL----------------------------------------------------
         // Get a reference to the ViewModel for this screen.
         mViewModel = ViewModelProviders.of(this).get(FindAllAnimalsViewModel.class);
 
@@ -48,15 +40,6 @@ public class MainActivity extends AppCompatActivity {
         subscribeUiAnimals();
     }
 
-    //USING VIEWMODEL---------------------------------------------------------
-    public void onRefreshBtClicked(View view) {
-     /*   mAnimalsTextView.setText("");
-        fetchData();*/
-        mViewModel.createDb();
-    }
-
-
-    //USING VIEWMODEL---------------------------------------------------------
     private void subscribeUiAnimals() {
         mViewModel.animals.observe(this, new Observer<List<Animal>>() {
             @Override
@@ -66,7 +49,6 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    //USING VIEWMODEL---------------------------------------------------------
     private void showAnimalsInUi(final @NonNull List<Animal> animals) {
         StringBuilder sb = new StringBuilder();
 
@@ -101,58 +83,17 @@ public class MainActivity extends AppCompatActivity {
         mAnimalsTextView.setText(Html.fromHtml(sb.toString()));
     }
 
-    /* private void populateDb() {
-       // DatabaseInitializer.populateSync(mDb);
-        DatabaseInitializer.populateAsync(mDb);
-    }*/
-
-    /*private void fetchData() {
-        // Note: this kind of logic should not be in an activity.
-        StringBuilder sb = new StringBuilder();
-
-
-        List<Animal> animals = mDb.animalModel().findAllAnimals();
-
-        java.text.SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy",
-                Locale.FRENCH);
-        for (Animal animal : animals) {
-            if (animal.isChipped){
-                sb.append("<font color='blue'>");
-                sb.append("<strong>");
-                sb.append(String.format(Locale.FRENCH,"%s",animal.name));
-                sb.append("</strong>");
-                sb.append("<br>");
-                sb.append("</font>");
-                sb.append("<font color='black'>");
-                sb.append(String.format(Locale.FRENCH, "%s", simpleDateFormat.format(animal.regDate)));
-                sb.append("<br>");
-                sb.append("<br>");
-                sb.append("</font>");
-            } else {
-                sb.append("<font color='grey'>");
-                sb.append(String.format(Locale.FRENCH, "%s", animal.name));
-                sb.append("<br>");
-                sb.append("</font>");
-                sb.append("<font color='black'>");
-                sb.append(String.format(Locale.FRENCH, "%s", simpleDateFormat.format(animal.regDate)));
-                sb.append("<br>");
-                sb.append("<br>");
-                sb.append("</font>");
-            }
-        }
-        mAnimalsTextView.setText(Html.fromHtml(sb.toString()));
-    }*/
-
-
-    public void onClickCreate (View view){
-        Intent intent = new Intent(this, CreateAnimalActivity.class);
-        startActivity(intent);
-
+    public void onRefreshBtClicked(View view) {
+        mViewModel.createDb();
     }
 
-    public void onClickSearch (View view){
+    public void onClickCreate(View view) {
+        Intent intent = new Intent(this, CreateAnimalActivity.class);
+        startActivity(intent);
+    }
+
+    public void onClickSearch(View view) {
         Intent intent = new Intent(this, SearchAnimalActivity.class);
         startActivity(intent);
-
     }
 }

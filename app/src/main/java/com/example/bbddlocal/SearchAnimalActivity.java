@@ -10,8 +10,10 @@ import android.text.Html;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.bbddlocal.bbdd.Animal;
+import com.example.bbddlocal.bbdd.AppDatabase;
 import com.example.bbddlocal.bbdd.FindAllAnimalsViewModel;
 import com.example.bbddlocal.bbdd.FindAnimalViewModel;
 
@@ -20,10 +22,12 @@ import java.util.List;
 import java.util.Locale;
 
 public class SearchAnimalActivity extends AppCompatActivity {
-
+    private AppDatabase mDb;
     private EditText animalName;
     private TextView myResultTextView;
     private FindAnimalViewModel mViewModel;
+
+    public String animalNametoString;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,19 +36,29 @@ public class SearchAnimalActivity extends AppCompatActivity {
 
         animalName = findViewById(R.id.et_name_search);
 
+        animalNametoString = animalName.toString();
+
         myResultTextView = (TextView) findViewById(R.id.tv_results);
+
+        //get a reference to the viewmodel for this screen
+        // Create a ViewModel the first time the system calls an activity's onCreate() method.
+        // Re-created activities receive the same MyViewModel instance created by the first activity.
+        mViewModel = ViewModelProviders.of(this).get(FindAnimalViewModel.class);
 
     }
 
+
     public void onClickSearchDetail(View view) {
-        mViewModel = ViewModelProviders.of(this).get(FindAnimalViewModel.class);
 
         // Update the UI whenever there's a change in the ViewModel's data.
         subscribeUiSearchAnimals();
+
+      //  mViewModel.FindAnimalViewModelByName(animalName.toString());
+
     }
 
-    private void subscribeUiSearchAnimals() {
 
+    private void subscribeUiSearchAnimals() {
         mViewModel.animals.observe(this, new Observer<List<Animal>>() {
             @Override
             public void onChanged(@NonNull final List<Animal> animals) {
@@ -52,7 +66,6 @@ public class SearchAnimalActivity extends AppCompatActivity {
             }
         });
     }
-
 
     private void showSearchAnimalsInUi(final @NonNull List<Animal> animals) {
         StringBuilder sb = new StringBuilder();
@@ -84,7 +97,8 @@ public class SearchAnimalActivity extends AppCompatActivity {
                 sb.append("<br>");
                 sb.append("</font>");
             }
-            myResultTextView.setText(sb.toString());
+
+            myResultTextView.setText(Html.fromHtml(sb.toString()));
         }
     }
 }
