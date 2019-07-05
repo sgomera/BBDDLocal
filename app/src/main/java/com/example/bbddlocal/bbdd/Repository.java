@@ -1,4 +1,4 @@
-package com.example.bbddlocal;
+package com.example.bbddlocal.bbdd;
 
 import android.app.Application;
 import android.arch.lifecycle.LiveData;
@@ -20,7 +20,7 @@ public class Repository {
         mAllAnimals = animalModel.findAllAnimals();
     }
 
-    LiveData<List<Animal>> getAllWords() {
+    LiveData<List<Animal>> getAllAnimals() {
         return mAllAnimals;
     }
 
@@ -43,4 +43,5 @@ public class Repository {
             return null;
         }
     }
+
 }

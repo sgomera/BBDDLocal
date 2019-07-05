@@ -2,16 +2,14 @@ package com.example.bbddlocal.bbdd;
 
 import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
-import android.support.annotation.NonNull;
+import android.arch.lifecycle.LiveData;
 
-import com.example.bbddlocal.utils.DatabaseInitializer;
-
-import java.util.Date;
+import java.util.List;
 
 
 public class InsertAnimalViewModel extends AndroidViewModel {
 
-    public Animal animal;
+    /*public Animal animal;
     private AppDatabase mDb;
 
     public InsertAnimalViewModel(@NonNull Application application) {
@@ -30,6 +28,23 @@ public class InsertAnimalViewModel extends AndroidViewModel {
 
     public void InsertAnimal(Animal animal){
         mDb.animalModel().insertAnimal(animal);
-    }
+    }*/
+
+
+
+
+        private Repository mRepository;
+
+        private LiveData<List<Animal>> mAllAnimals;
+
+        public InsertAnimalViewModel (Application application) {
+            super(application);
+            mRepository = new Repository(application);
+            mAllAnimals = mRepository.getAllAnimals();
+        }
+
+        LiveData<List<Animal>> getAllAnimals() { return mAllAnimals; }
+
+        public void insert(Animal animal) { mRepository.insert(animal); }
 
 }

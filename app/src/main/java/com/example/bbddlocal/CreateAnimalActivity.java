@@ -1,6 +1,7 @@
 package com.example.bbddlocal;
 
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -13,9 +14,11 @@ import android.widget.Toast;
 
 import com.example.bbddlocal.bbdd.Animal;
 import com.example.bbddlocal.bbdd.AppDatabase;
+import com.example.bbddlocal.bbdd.FindAllAnimalsViewModel;
 import com.example.bbddlocal.bbdd.InsertAnimalViewModel;
 import com.example.bbddlocal.utils.DatabaseInitializer;
 
+import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -30,8 +33,10 @@ public class CreateAnimalActivity extends AppCompatActivity {
     private EditText animalType;
     private CheckBox isChipped;
 
-    //variable for button
-    private Button saveAnimal;
+    //variable for button //TODO: commented to do test code example
+ //   private Button saveAnimal;
+
+    public static final String EXTRA_REPLY = "com.example.android.wordlistsql.REPLY";
 
     //create varible for viewmodel
     private InsertAnimalViewModel mViewModel;
@@ -58,15 +63,29 @@ public class CreateAnimalActivity extends AppCompatActivity {
         //or do I have to execute them later in the onclick method???
         mViewModel = ViewModelProviders.of(this).get(InsertAnimalViewModel.class);
 
+
+        final Button button = findViewById(R.id.bt_save);
+        button.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                createAnimal();
+                Intent replyIntent = new Intent();
+                replyIntent.putExtra(EXTRA_REPLY, (Serializable) animal);
+                setResult(RESULT_OK, replyIntent);
+
+                finish();
+            }
+        });
+
     }
 
-    //create onclick method to insert a new register in animals
-    public void onClickSave(View view) {
+    //create onclick method to insert a new register in animals TODO commented to do test code example, with listener
+    /*public void onClickSave(View view) {
         createAnimal();
+
       //això peta:
       //  mViewModel.InsertAnimal(animal);
         Toast.makeText(this, "animal created successfully", Toast.LENGTH_SHORT).show();
-    }
+    }*/
 
     private Animal createAnimal() {
 
