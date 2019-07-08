@@ -11,22 +11,26 @@ import com.example.bbddlocal.bbdd.AppDatabase;
 import java.util.List;
 
 public class Repository {
-    private AnimalDao animalModel;
+    private AnimalDao animalDao;
     private LiveData<List<Animal>> mAllAnimals;
 
-    Repository(Application application) {
+    public Repository(Application application) {
         AppDatabase db = AppDatabase.getInMemoryDatabase(application);
-        animalModel = db.animalDao();
-        mAllAnimals = animalModel.findAllAnimals();
+        animalDao = db.animalDao();
+        mAllAnimals = animalDao.findAllAnimals();
     }
 
-    LiveData<List<Animal>> getAllAnimals() {
+    public LiveData<List<Animal>> getAllAnimals() {
+        return mAllAnimals;
+    }
+
+    public LiveData<List<Animal>> getAnimalsByName(String name) {
         return mAllAnimals;
     }
 
 
     public void insert (Animal animal) {
-        new insertAsyncTask(animalModel).execute(animal);
+        new insertAsyncTask(animalDao).execute(animal);
     }
 
     private static class insertAsyncTask extends AsyncTask<Animal, Void, Void> {

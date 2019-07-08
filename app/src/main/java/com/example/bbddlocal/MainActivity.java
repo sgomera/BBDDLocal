@@ -10,10 +10,11 @@ import android.text.Html;
 import android.view.View;
 import android.widget.TextView;
 import android.arch.lifecycle.ViewModelProviders;
+import android.widget.Toast;
 
 import com.example.bbddlocal.bbdd.Animal;
 import com.example.bbddlocal.bbdd.AppDatabase;
-import com.example.bbddlocal.bbdd.FindAllAnimalsViewModel;
+import com.example.bbddlocal.bbdd.AnimalsViewModel;
 
 import java.text.SimpleDateFormat;
 import java.util.List;
@@ -21,9 +22,10 @@ import java.util.Locale;
 
 
 public class MainActivity extends AppCompatActivity {
-    private AppDatabase mDb;
     private TextView mAnimalsTextView;
-    private FindAllAnimalsViewModel mViewModel;
+    private AnimalsViewModel mViewModel;
+
+    public static final int NEW_WORD_ACTIVITY_REQUEST_CODE = 1;
 
 
     @Override
@@ -34,14 +36,14 @@ public class MainActivity extends AppCompatActivity {
         mAnimalsTextView = (TextView) findViewById(R.id.animals_tv);
 
         // Get a reference to the ViewModel for this screen.
-        mViewModel = ViewModelProviders.of(this).get(FindAllAnimalsViewModel.class);
+        mViewModel = ViewModelProviders.of(this).get(AnimalsViewModel.class);
 
         // Update the UI whenever there's a change in the ViewModel's data.
         subscribeUiAnimals();
     }
 
     private void subscribeUiAnimals() {
-        mViewModel.animals.observe(this, new Observer<List<Animal>>() {
+        mViewModel.mAllAnimals.observe(this, new Observer<List<Animal>>() {
             @Override
             public void onChanged(@NonNull final List<Animal> animals) {
                 showAnimalsInUi(animals);
@@ -83,17 +85,33 @@ public class MainActivity extends AppCompatActivity {
         mAnimalsTextView.setText(Html.fromHtml(sb.toString()));
     }
 
-    public void onRefreshBtClicked(View view) {
-        mViewModel.createDb();
-    }
 
     public void onClickCreate(View view) {
         Intent intent = new Intent(this, CreateAnimalActivity.class);
-        startActivity(intent);
+        //startActivity(intent);
+        startActivityForResult(intent, NEW_WORD_ACTIVITY_REQUEST_CODE);
     }
 
     public void onClickSearch(View view) {
         Intent intent = new Intent(this, SearchAnimalActivity.class);
         startActivity(intent);
+    }
+
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == NEW_WORD_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK) {
+
+
+            //aquí es crea l'animal amb les dades de l'altra pantalla. S'ha de crear un bundle a l'altra pantalla
+            //que contingui l'animal a crear
+            /*Animal animal = new Animal(data.getStringExtra(CreateAnimalActivity.EXTRA_REPLY));
+            mViewModel.insert(animal);*/
+        } else {
+            Toast.makeText(
+                    getApplicationContext(),
+                    R.string.empty_not_saved,
+                    Toast.LENGTH_LONG).show();
+        }
     }
 }

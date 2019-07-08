@@ -36,15 +36,6 @@
                 android:paddingStart="16dp"
                 android:paddingEnd="16dp" />
 
-            <Button
-                android:id="@+id/bt_refresh"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="8dp"
-                android:onClick="onRefreshBtClicked"
-                android:text="@string/refresh" />
-
         </LinearLayout>
 
     </ScrollView>

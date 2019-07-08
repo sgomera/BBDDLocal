@@ -9,9 +9,10 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.example.bbddlocal.bbdd.Animal;
-import com.example.bbddlocal.bbdd.InsertAnimalViewModel;
+import com.example.bbddlocal.bbdd.AnimalsViewModel;
 
 import java.io.Serializable;
 import java.util.Calendar;
@@ -28,15 +29,8 @@ public class CreateAnimalActivity extends AppCompatActivity {
     private EditText animalType;
     private CheckBox isChipped;
 
-    //variable for button //TODO: commented to do test code example
- //   private Button saveAnimal;
 
     public static final String EXTRA_REPLY = "com.example.android.wordlistsql.REPLY";
-
-    //create varible for viewmodel
-    private InsertAnimalViewModel mViewModel;
-
-
     private Animal animal;
 
 
@@ -47,16 +41,12 @@ public class CreateAnimalActivity extends AppCompatActivity {
 
         //find views by id and store them
         animalId = findViewById(R.id.et_animalId);
-        imgAnimal = (ImageView)findViewById(R.id.img_animal);
-        animalName = (EditText)findViewById(R.id.et_name);
-        animalAge = (EditText)findViewById(R.id.et_age);
-        regDate = (EditText)findViewById(R.id.et_reg_date);
-        animalType = (EditText)findViewById(R.id.et_animal_type);
-        isChipped = (CheckBox)findViewById(R.id.checkBox);
-
-        // Get a reference to the ViewModel for this screen. Does this execute the methods of the viewmodel????
-        //or do I have to execute them later in the onclick method???
-        mViewModel = ViewModelProviders.of(this).get(InsertAnimalViewModel.class);
+        imgAnimal = findViewById(R.id.img_animal);
+        animalName = findViewById(R.id.et_name);
+        animalAge = findViewById(R.id.et_age);
+        regDate = findViewById(R.id.et_reg_date);
+        animalType = findViewById(R.id.et_animal_type);
+        isChipped = findViewById(R.id.checkBox);
 
 
         final Button button = findViewById(R.id.bt_save);
@@ -73,33 +63,20 @@ public class CreateAnimalActivity extends AppCompatActivity {
 
     }
 
-    //create onclick method to insert a new register in animals TODO commented to do test code example, with listener
-    /*public void onClickSave(View view) {
-        createAnimal();
-
-      //això peta:
-      //  mViewModel.InsertAnimal(animal);
-        Toast.makeText(this, "animal created successfully", Toast.LENGTH_SHORT).show();
-    }*/
 
     private Animal createAnimal() {
 
-        Date today = getTodayPlusDays(0);
-        Date yesterday = getTodayPlusDays(-1);
-        Date twoDaysAgo = getTodayPlusDays(-2);
         Date lastWeek = getTodayPlusDays(-7);
-        Date twoWeeksAgo = getTodayPlusDays(-14);
-
 
         animal = addAnimal(
-                4 ,
-                animalName.toString(),
-            //    Integer.getInteger(animalAge.toString()),
-                5,
+                Integer.parseInt (animalId.getText().toString()),
+                animalName.getText().toString(),
+                Integer.parseInt (animalAge.getText().toString()),
                 true,
-                animalType.toString(),
+                animalType.getText().toString(),
                 lastWeek,
-                "photo");
+                "photo"
+        );
         return animal;
     }
 
@@ -110,8 +87,8 @@ public class CreateAnimalActivity extends AppCompatActivity {
     }
 
 
-    private static Animal addAnimal(
-                                 //   final AppDatabase db,
+    // constructor
+    private  Animal addAnimal(
                                     final int id,
                                     final String name,
                                     final int age,
@@ -120,7 +97,6 @@ public class CreateAnimalActivity extends AppCompatActivity {
                                     final Date regDate,
                                     final String photo
     ) {
-
         Animal animal = new Animal();
         animal.id = id;
         animal.name = name;
@@ -130,7 +106,6 @@ public class CreateAnimalActivity extends AppCompatActivity {
         animal.regDate = regDate;
         animal.photo = photo;
 
-      //  db.animalModel().insertAnimal(animal);
         return animal;
     }
 

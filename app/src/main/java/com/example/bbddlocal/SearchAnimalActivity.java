@@ -2,7 +2,6 @@ package com.example.bbddlocal;
 
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
-import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -10,12 +9,10 @@ import android.text.Html;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.bbddlocal.bbdd.Animal;
+import com.example.bbddlocal.bbdd.AnimalsViewModel;
 import com.example.bbddlocal.bbdd.AppDatabase;
-import com.example.bbddlocal.bbdd.FindAllAnimalsViewModel;
-import com.example.bbddlocal.bbdd.FindAnimalViewModel;
 
 import java.text.SimpleDateFormat;
 import java.util.List;
@@ -25,7 +22,7 @@ public class SearchAnimalActivity extends AppCompatActivity {
     private AppDatabase mDb;
     private EditText animalName;
     private TextView myResultTextView;
-    private FindAnimalViewModel mViewModel;
+    private AnimalsViewModel mViewModel;
 
     public String animalNametoString;
 
@@ -43,7 +40,7 @@ public class SearchAnimalActivity extends AppCompatActivity {
         //get a reference to the viewmodel for this screen
         // Create a ViewModel the first time the system calls an activity's onCreate() method.
         // Re-created activities receive the same MyViewModel instance created by the first activity.
-        mViewModel = ViewModelProviders.of(this).get(FindAnimalViewModel.class);
+        mViewModel = ViewModelProviders.of(this).get(AnimalsViewModel.class);
 
     }
 
@@ -59,7 +56,7 @@ public class SearchAnimalActivity extends AppCompatActivity {
 
 
     private void subscribeUiSearchAnimals() {
-        mViewModel.animals.observe(this, new Observer<List<Animal>>() {
+        mViewModel.mAllAnimals.observe(this, new Observer<List<Animal>>() {
             @Override
             public void onChanged(@NonNull final List<Animal> animals) {
                 showSearchAnimalsInUi(animals);
