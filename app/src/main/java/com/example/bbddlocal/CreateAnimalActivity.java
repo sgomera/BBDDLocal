@@ -2,7 +2,6 @@ package com.example.bbddlocal;
 
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -10,13 +9,9 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.example.bbddlocal.bbdd.Animal;
-import com.example.bbddlocal.bbdd.AppDatabase;
-import com.example.bbddlocal.bbdd.FindAllAnimalsViewModel;
 import com.example.bbddlocal.bbdd.InsertAnimalViewModel;
-import com.example.bbddlocal.utils.DatabaseInitializer;
 
 import java.io.Serializable;
 import java.util.Calendar;

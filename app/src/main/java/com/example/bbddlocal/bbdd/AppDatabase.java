@@ -1,6 +1,5 @@
 package com.example.bbddlocal.bbdd;
 
-import android.app.Application;
 import android.arch.persistence.db.SupportSQLiteDatabase;
 import android.arch.persistence.room.Database;
 import android.arch.persistence.room.Room;
@@ -8,8 +7,6 @@ import android.arch.persistence.room.RoomDatabase;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.support.annotation.NonNull;
-
-import com.example.bbddlocal.utils.DatabaseInitializer;
 
 import java.util.Calendar;
 import java.util.Date;
