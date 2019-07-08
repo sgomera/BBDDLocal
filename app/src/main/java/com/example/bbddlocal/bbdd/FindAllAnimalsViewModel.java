@@ -20,7 +20,7 @@ public class FindAllAnimalsViewModel extends AndroidViewModel {
         super(application);
         createDb();
 
-        animals = mDb.animalModel().findAllAnimals();
+        animals = mDb.animalDao().findAllAnimals();
 
     }
 
@@ -28,9 +28,7 @@ public class FindAllAnimalsViewModel extends AndroidViewModel {
         mDb = AppDatabase.getInMemoryDatabase(this.getApplication());
 
         // Populate it with initial data
-        DatabaseInitializer.populateAsync(mDb);
-
-
+      //  DatabaseInitializer.populateAsync(mDb);
 
     }
 

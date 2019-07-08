@@ -38,12 +38,12 @@ public class DatabaseInitializer {
         animal.regDate = regDate;
         animal.photo = photo;
 
-        db.animalModel().insertAnimal(animal);
+        db.animalDao().insertAnimal(animal);
         return animal;
     }
 
     private static void populateWithTestData(AppDatabase db) {
-        db.animalModel().deleteAll();
+        db.animalDao().deleteAll();
 
 
         Date today = getTodayPlusDays(0);

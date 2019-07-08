@@ -24,7 +24,7 @@ public class FindAnimalViewModel extends AndroidViewModel {
         super(application);
         getDb();
 
-        animals = mDb.animalModel().findAllAnimals();
+        animals = mDb.animalDao().findAllAnimals();
 
     }
 

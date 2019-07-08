@@ -16,7 +16,7 @@ public class Repository {
 
     Repository(Application application) {
         AppDatabase db = AppDatabase.getInMemoryDatabase(application);
-        animalModel = db.animalModel();
+        animalModel = db.animalDao();
         mAllAnimals = animalModel.findAllAnimals();
     }
 
