@@ -2,6 +2,7 @@ package com.example.bbddlocal;
 
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
+import android.support.v4.app.DialogFragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -14,6 +15,7 @@ import android.widget.Toast;
 
 import com.example.bbddlocal.bbdd.Animal;
 import com.example.bbddlocal.bbdd.AnimalsViewModel;
+import com.example.bbddlocal.utils.DatePickerFragment;
 
 import java.io.Serializable;
 import java.util.Calendar;
@@ -61,10 +63,16 @@ public class CreateAnimalActivity extends AppCompatActivity {
             public void onClick(View view) {
                 createAnimal();
                 mViewModel.insert(animal);
+                //return to main activity
                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                 startActivity(intent);
             }
         });
+    }
+
+    public void showDatePickerDialog(View v) {
+        DialogFragment newFragment = new DatePickerFragment();
+        newFragment.show(getSupportFragmentManager(), "datePicker");
     }
 
     private Animal createAnimal() {
@@ -75,8 +83,9 @@ public class CreateAnimalActivity extends AppCompatActivity {
                 Integer.parseInt(animalId.getText().toString()),
                 animalName.getText().toString(),
                 Integer.parseInt(animalAge.getText().toString()),
-                true,
+                isChipped.isActivated(),
                 animalType.getText().toString(),
+               // regDate.get
                 lastWeek,
                 "photo"
         );

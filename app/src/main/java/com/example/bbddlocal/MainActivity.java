@@ -27,8 +27,6 @@ public class MainActivity extends AppCompatActivity {
     private TextView mAnimalsTextView;
     private AnimalsViewModel mViewModel;
 
- //   public static final int CREATE_ANIMAL_ACTIVITY_REQUEST_CODE = 1;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,33 +93,8 @@ public class MainActivity extends AppCompatActivity {
     public void onClickCreate(View view) {
         Intent intent = new Intent(this, CreateAnimalActivity.class);
         startActivity(intent);
-      //  startActivityForResult(intent, CREATE_ANIMAL_ACTIVITY_REQUEST_CODE);
     }
 
-
-
-   /* public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if (requestCode == CREATE_ANIMAL_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK) {
-
-            //aquí es crea l'animal amb les dades de l'altra pantalla. S'ha de crear un bundle a l'altra pantalla
-            //que contingui l'animal a crear
-           // Animal animal = new Animal(data.getStringExtra(CreateAnimalActivity.EXTRA_REPLY));
-       //     Animal animal = new Animal(data.getBundleExtra(CreateAnimalActivity.EXTRA_REPLY));
-
-            Bundle animalBundle = getIntent().getExtras();
-       //     Animal enteredAnimal = animalBundle.get(EXTRA_REPLY);
-
-         //   mViewModel.insert(animal);
-    //        mViewModel.insert(animalBundle);
-        } else {
-            Toast.makeText(
-                    getApplicationContext(),
-                    R.string.empty_not_saved,
-                    Toast.LENGTH_LONG).show();
-        }
-    }*/
 
     public void onClickSearch(View view) {
         Intent intent = new Intent(this, SearchAnimalActivity.class);

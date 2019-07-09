@@ -1,14 +1,18 @@
 package com.example.bbddlocal;
 
+import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Html;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.bbddlocal.bbdd.Animal;
 import com.example.bbddlocal.bbdd.AnimalsViewModel;
@@ -24,44 +28,47 @@ public class SearchAnimalActivity extends AppCompatActivity {
     private TextView myResultTextView;
     private AnimalsViewModel mViewModel;
 
-    public String animalNametoString;
+    public List<Animal> mSearchedAnimals;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search_animal);
 
-        animalName = findViewById(R.id.et_name_search);
-
-        animalNametoString = animalName.toString();
+        animalName = (EditText) findViewById(R.id.et_name_search);
 
         myResultTextView = (TextView) findViewById(R.id.tv_results);
 
-        //get a reference to the viewmodel for this screen
-        // Create a ViewModel the first time the system calls an activity's onCreate() method.
-        // Re-created activities receive the same MyViewModel instance created by the first activity.
-        mViewModel = ViewModelProviders.of(this).get(AnimalsViewModel.class);
+        //get a reference to the ViewModel for this screen
+        mViewModel = ViewModelProviders.of(this ).get(AnimalsViewModel.class);
 
+        final Button button = findViewById(R.id.bt_search);
+        button.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                subscribeUiSearchAnimals();
+            }
+        });
     }
 
-
-    public void onClickSearchDetail(View view) {
-
-        // Update the UI whenever there's a change in the ViewModel's data.
-        subscribeUiSearchAnimals();
-
-      //  mViewModel.FindAnimalViewModelByName(animalName.toString());
-
+    private LiveData<List<Animal>> findAnimals(String name) {
+        return  mViewModel.getByName(name);
     }
 
 
     private void subscribeUiSearchAnimals() {
-        mViewModel.mAllAnimals.observe(this, new Observer<List<Animal>>() {
+        mViewModel.getByName(animalName.getText().toString()).observe(this, new Observer<List<Animal>>() {
             @Override
             public void onChanged(@NonNull final List<Animal> animals) {
+
+               // showSearchAnimalsInUi(findAnimals(animalName.getText().toString()));
                 showSearchAnimalsInUi(animals);
+                Toast.makeText(getApplicationContext(), animalName.getText().toString(), Toast.LENGTH_SHORT).show();
             }
         });
+
+
     }
 
     private void showSearchAnimalsInUi(final @NonNull List<Animal> animals) {

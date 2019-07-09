@@ -29,6 +29,7 @@ public interface AnimalDao {
     @Query("select * from animal where name = :name")
     LiveData<List<Animal>> findAnimalByName(String name);
 
+
     //insert---------------------------
     @Insert(onConflict = IGNORE)
     void insertAnimal(Animal animal);

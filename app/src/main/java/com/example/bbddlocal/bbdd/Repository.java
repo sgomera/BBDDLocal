@@ -10,6 +10,8 @@ import java.util.List;
 public class Repository {
     private AnimalDao animalDao;
     private LiveData<List<Animal>> mAllAnimals;
+    private LiveData<List<Animal>> mSearchedAnimals;
+    public String name;
 
     // Note that in order to unit test the WordRepository, you have to remove the Application
     // dependency. This adds complexity and much more code, and this sample is not about testing.
@@ -19,6 +21,7 @@ public class Repository {
         AppDatabase db = AppDatabase.getInMemoryDatabase(application);
         animalDao = db.animalDao();
         mAllAnimals = animalDao.findAllAnimals();
+        mSearchedAnimals = animalDao.findAnimalByName(name);
     }
     // Room executes all queries on a separate thread.
     // Observed LiveData will notify the observer when the data has changed.
@@ -27,7 +30,7 @@ public class Repository {
     }
 
     public LiveData<List<Animal>> getAnimalsByName(String name) {
-        return mAllAnimals;
+        return mSearchedAnimals;
     }
 
     // You must call this on a non-UI thread or your app will crash.
