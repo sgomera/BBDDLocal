@@ -21,7 +21,7 @@ public class AnimalsViewModel extends AndroidViewModel {
 
     }
 
-    LiveData<List<Animal>> getAllWords() {
+    public LiveData<List<Animal>> getAllAnimals() {
         return mAllAnimals;
     }
 

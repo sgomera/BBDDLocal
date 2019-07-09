@@ -19,15 +19,9 @@ import static android.arch.persistence.room.OnConflictStrategy.IGNORE;
 @Dao
 @TypeConverters(DateConverter.class)
 public interface AnimalDao {
-    //USING VIEWMODEL
+
     @Query("select * from animal order by regDate Desc")
     LiveData<List<Animal>> findAllAnimals();
-
-/*    @Query("select * from animal")
-    List<Animal> findAllAnimals();*/
-
-    @Query("select * from animal order by regDate Desc")
-    List<Animal> findAllAnimalsOrderedByDateDesc();
 
     @Query("select * from animal where id = :id")
     Animal findAnimalById(int id);

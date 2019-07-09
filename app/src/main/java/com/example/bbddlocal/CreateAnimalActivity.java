@@ -4,6 +4,7 @@ import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -30,8 +31,10 @@ public class CreateAnimalActivity extends AppCompatActivity {
     private CheckBox isChipped;
 
 
-    public static final String EXTRA_REPLY = "com.example.android.wordlistsql.REPLY";
+   // public static final String EXTRA_REPLY = "com.example.android.animallistsql.REPLY";
     private Animal animal;
+
+    private AnimalsViewModel mViewModel;
 
 
     @Override
@@ -49,29 +52,29 @@ public class CreateAnimalActivity extends AppCompatActivity {
         isChipped = findViewById(R.id.checkBox);
 
 
+        // Get a reference to the ViewModel for this screen (activity).
+        mViewModel = ViewModelProviders.of(this).get(AnimalsViewModel.class);
+
+
         final Button button = findViewById(R.id.bt_save);
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 createAnimal();
-                Intent replyIntent = new Intent();
-                replyIntent.putExtra(EXTRA_REPLY, (Serializable) animal);
-                setResult(RESULT_OK, replyIntent);
-
-                finish();
+                mViewModel.insert(animal);
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(intent);
             }
         });
-
     }
-
 
     private Animal createAnimal() {
 
         Date lastWeek = getTodayPlusDays(-7);
 
         animal = addAnimal(
-                Integer.parseInt (animalId.getText().toString()),
+                Integer.parseInt(animalId.getText().toString()),
                 animalName.getText().toString(),
-                Integer.parseInt (animalAge.getText().toString()),
+                Integer.parseInt(animalAge.getText().toString()),
                 true,
                 animalType.getText().toString(),
                 lastWeek,
@@ -86,16 +89,15 @@ public class CreateAnimalActivity extends AppCompatActivity {
         return calendar.getTime();
     }
 
-
     // constructor
-    private  Animal addAnimal(
-                                    final int id,
-                                    final String name,
-                                    final int age,
-                                    final boolean isChipped,
-                                    final String animalType,
-                                    final Date regDate,
-                                    final String photo
+    private Animal addAnimal(
+            final int id,
+            final String name,
+            final int age,
+            final boolean isChipped,
+            final String animalType,
+            final Date regDate,
+            final String photo
     ) {
         Animal animal = new Animal();
         animal.id = id;
@@ -108,6 +110,5 @@ public class CreateAnimalActivity extends AppCompatActivity {
 
         return animal;
     }
-
 
 }
