@@ -43,4 +43,6 @@ public class AnimalsViewModel extends AndroidViewModel {
         mRepository.insert(animal);
     }
 
+
+    //TODO create factory subclass. See Basic sample example
 }

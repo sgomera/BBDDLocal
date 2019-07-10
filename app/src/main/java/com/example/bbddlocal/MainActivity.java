@@ -42,10 +42,6 @@ public class MainActivity extends AppCompatActivity {
     private TextView mAnimalsTextView;
     private AnimalsViewModel mViewModel;
 
-    private Button takePictureButton;
-    private Button selectFileButton;
-
-    private boolean permissionGranted;
 
 
 
@@ -56,10 +52,7 @@ public class MainActivity extends AppCompatActivity {
 
         mAnimalsTextView = (TextView) findViewById(R.id.animals_tv);
 
-        //request permissions
-        if (!permissionGranted) {
-            checkPermissions();
-        }
+
 
         // Get a reference to the ViewModel for this screen (activity).
         mViewModel = ViewModelProviders.of(this).get(AnimalsViewModel.class);
@@ -131,62 +124,5 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-    // Initiate check for permissions.
-    private boolean checkPermissions() {
 
-        int permissionCheckCamera = ContextCompat.checkSelfPermission(this,
-                Manifest.permission.CAMERA);
-        int permissionCheckReadStorage = ContextCompat.checkSelfPermission(this,
-                Manifest.permission.READ_EXTERNAL_STORAGE);
-
-        if ((permissionCheckCamera != PackageManager.PERMISSION_GRANTED) || permissionCheckReadStorage != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this,
-                    new String[]{Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE},
-                    0);
-            return false;
-        } else {
-            return true;
-        }
-    }
-
-
-    // Handle permissions result
-    @Override
-    public void onRequestPermissionsResult(int requestCode,
-                                           @NonNull String permissions[],
-                                           @NonNull int[] grantResults) {
-        switch (requestCode) {
-
-            case 0:
-                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED
-                    //          && grantResults[1] == PackageManager.PERMISSION_GRANTED
-                ) {
-                    Toast.makeText(this, "Camera permission granted",
-                            Toast.LENGTH_SHORT).show();
-                    takePictureButton.setEnabled(true);
-                    if (grantResults[1] == PackageManager.PERMISSION_GRANTED) {
-                        selectFileButton.setEnabled(true);
-                        Toast.makeText(this, "Read storage permission granted",
-                                Toast.LENGTH_SHORT).show();
-                    } else {
-                        Toast.makeText(this, "Select file button disabled", Toast.LENGTH_SHORT).show();
-                        selectFileButton.setEnabled(false);
-                    }
-                    break;
-                } else {
-                    Toast.makeText(this, "Take picture button disabled", Toast.LENGTH_SHORT).show();
-                    takePictureButton.setEnabled(false);
-                    if (grantResults[1] == PackageManager.PERMISSION_GRANTED) {
-                        selectFileButton.setEnabled(true);
-                        Toast.makeText(this, "Read storage permission granted",
-                                Toast.LENGTH_SHORT).show();
-                    } else {
-                        Toast.makeText(this, "Select file button disabled", Toast.LENGTH_SHORT).show();
-                        selectFileButton.setEnabled(false);
-                    }
-                    break;
-                }
-
-        }
-    }
 }

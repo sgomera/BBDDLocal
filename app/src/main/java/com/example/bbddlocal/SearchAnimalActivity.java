@@ -68,8 +68,9 @@ public class SearchAnimalActivity extends AppCompatActivity {
             }
         });
 
-
     }
+
+    //TODO create a instance of a factory subclass of the viewmodel to be able to pass to viewmodel
 
     private void showSearchAnimalsInUi(final @NonNull List<Animal> animals) {
         StringBuilder sb = new StringBuilder();
