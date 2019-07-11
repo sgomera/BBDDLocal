@@ -3,6 +3,7 @@ package com.example.bbddlocal;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.DatePickerDialog;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -15,6 +16,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.InputType;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -31,7 +33,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-public class CreateAnimalActivity extends AppCompatActivity implements DatePicker.OnDateChangedListener{
+public class CreateAnimalActivity extends AppCompatActivity{
 
     //variables for EditText fields
     private EditText animalId;
@@ -43,6 +45,8 @@ public class CreateAnimalActivity extends AppCompatActivity implements DatePicke
     private EditText regDate;
     private EditText animalType;
     private CheckBox isChipped;
+
+    DatePickerDialog picker;
 
     private Uri file;
 
@@ -71,6 +75,28 @@ public class CreateAnimalActivity extends AppCompatActivity implements DatePicke
         takePictureButton = findViewById(R.id.button_image);
         selectFileButton = findViewById(R.id.button_file);
         imgAnimal = findViewById(R.id.img_animal);
+
+
+        //Show DatePicker when clicking in regDate:
+/*        regDate.setInputType(InputType.TYPE_NULL);
+        regDate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final Calendar cldr = Calendar.getInstance();
+                int day = cldr.get(Calendar.DAY_OF_MONTH);
+                int month = cldr.get(Calendar.MONTH);
+                int year = cldr.get(Calendar.YEAR);
+                // date picker dialog
+                picker = new DatePickerDialog(getApplicationContext(),
+                        new DatePickerDialog.OnDateSetListener() {
+                            @Override
+                            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                                regDate.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);
+                            }
+                        }, year, month, day);
+                picker.show();
+            }
+        });*/
 
 
         //request permissions
@@ -143,7 +169,7 @@ public class CreateAnimalActivity extends AppCompatActivity implements DatePicke
         return animal;
     }
 
-    //mètode per fer la foto TODO fix! not working (app crashes)
+    //mètode per fer la foto
     public void takePicture(View view) {
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         file = Uri.fromFile(getOutputMediaFile());
@@ -271,7 +297,9 @@ public class CreateAnimalActivity extends AppCompatActivity implements DatePicke
         }
     }
 
-    @Override
+
+
+/*    @Override
     public void onDateChanged(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
         //TODO passar el resultat del date picker a l'editText de regDate (no funciona)
         //hem de rescatar les dades del bundle de la data de registre.
@@ -288,5 +316,5 @@ public class CreateAnimalActivity extends AppCompatActivity implements DatePicke
                 append(enteredMonth).append("/").
                 append(enteredYear)
         );
-    }
+    }*/
 }

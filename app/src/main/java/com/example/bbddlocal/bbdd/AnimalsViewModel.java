@@ -3,8 +3,8 @@ package com.example.bbddlocal.bbdd;
 import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.LiveData;
-import android.os.Bundle;
-import android.content.Intent;
+import android.arch.lifecycle.MutableLiveData;
+import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 
 
@@ -16,7 +16,10 @@ public class AnimalsViewModel extends AndroidViewModel {
     public final LiveData<List<Animal>> mAllAnimals;
 
     private String mAnimalName;
-    public LiveData<List<Animal>> mSearchedAnimals;
+   // public LiveData<List<Animal>> mSearchedAnimals;
+
+    MutableLiveData<List<Animal>> mSearchedAnimals = new MutableLiveData<>();
+
 
     public AnimalsViewModel(@NonNull Application application
     ) {
@@ -44,5 +47,31 @@ public class AnimalsViewModel extends AndroidViewModel {
     }
 
 
+    private void refresh(String animalName) {
+        mAnimalName = animalName;
+        String formattedSearchText = "%" + mAnimalName + "%";
+        new GetSearchDataTask.execute(formattedSearchText);
+    }
+
+    //for Async Work
+    private class GetSearchDataTask extends AsyncTask<Void, Void, List<Animal>> {
+
+        @Override
+        protected List<Animal> doInBackground(String... params) {
+            return mRepository.getAllAnimals(params[0]);
+        }
+
+        @Override
+        protected void onPostExecute(List<Animal> animals) {
+            super.onPostExecute(animals);
+            mSearchedAnimals.setValue(animals); //change LiveData value
+        }
+    }
+
+
+
+
     //TODO create factory subclass. See Basic sample example
+
+    //TODO review https://stackoverflow.com/questions/55076046/room-livedata-viewmodel-search-by-name-strange-filtering-behavior
 }

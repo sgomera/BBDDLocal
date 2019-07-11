@@ -2,6 +2,7 @@ package com.example.bbddlocal.bbdd;
 
 import android.app.Application;
 import android.arch.lifecycle.LiveData;
+import android.arch.lifecycle.MutableLiveData;
 import android.os.AsyncTask;
 
 
@@ -10,8 +11,12 @@ import java.util.List;
 public class Repository {
     private AnimalDao animalDao;
     private LiveData<List<Animal>> mAllAnimals;
-    private LiveData<List<Animal>> mSearchedAnimals;
+    private MutableLiveData<List<Animal>> mSearchedAnimals;
     public String name;
+    public int id;
+
+    //variable to search by ID and obtain a unique result if type Animal.
+    private LiveData<List<Animal>> mSearchedAnimal;
 
     // Note that in order to unit test the WordRepository, you have to remove the Application
     // dependency. This adds complexity and much more code, and this sample is not about testing.
@@ -22,6 +27,8 @@ public class Repository {
         animalDao = db.animalDao();
         mAllAnimals = animalDao.findAllAnimals();
         mSearchedAnimals = animalDao.findAnimalByName(name);
+
+
     }
     // Room executes all queries on a separate thread.
     // Observed LiveData will notify the observer when the data has changed.
@@ -29,9 +36,10 @@ public class Repository {
         return mAllAnimals;
     }
 
-    public LiveData<List<Animal>> getAnimalsByName(String name) {
+    public MutableLiveData<List<Animal>> getAnimalsByName(String name) {
         return mSearchedAnimals;
     }
+
 
     // You must call this on a non-UI thread or your app will crash.
     // Like this, Room ensures that you're not doing any long running operations on the main

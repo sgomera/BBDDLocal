@@ -24,10 +24,10 @@ public interface AnimalDao {
     LiveData<List<Animal>> findAllAnimals();
 
     @Query("select * from animal where id = :id")
-    Animal findAnimalById(int id);
+    LiveData<List<Animal>> findAnimalById(int id);
 
     @Query("select * from animal where name = :name")
-    LiveData<List<Animal>> findAnimalByName(String name);
+    MutableLiveData<List<Animal>> findAnimalByName(String name);
 
 
     //insert---------------------------
@@ -41,8 +41,8 @@ public interface AnimalDao {
     @Query("delete from animal where id = :id")
     int deleteAnimalbyId(int id);
 
-    @Query("delete from animal where name = :name")
-    int deleteAnimalByName(String name);
+    @Query("delete from animal where name = :name1")
+    int deleteAnimalByName(String name1);
 
     @Query("DELETE FROM animal")
     void deleteAll();

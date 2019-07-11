@@ -3,7 +3,6 @@ package com.example.bbddlocal;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
-import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -19,6 +18,8 @@ import com.example.bbddlocal.bbdd.AnimalsViewModel;
 import com.example.bbddlocal.bbdd.AppDatabase;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -29,6 +30,7 @@ public class SearchAnimalActivity extends AppCompatActivity {
     private AnimalsViewModel mViewModel;
 
     public List<Animal> mSearchedAnimals;
+
 
 
 
@@ -56,6 +58,11 @@ public class SearchAnimalActivity extends AppCompatActivity {
         return  mViewModel.getByName(name);
     }
 
+    //finding by Id
+    private LiveData<List<Animal>> findAnimal(int id){
+        return mViewModel.getById(id);
+    }
+
 
     private void subscribeUiSearchAnimals() {
         mViewModel.getByName(animalName.getText().toString()).observe(this, new Observer<List<Animal>>() {
@@ -68,9 +75,10 @@ public class SearchAnimalActivity extends AppCompatActivity {
             }
         });
 
+
     }
 
-    //TODO create a instance of a factory subclass of the viewmodel to be able to pass to viewmodel
+
 
     private void showSearchAnimalsInUi(final @NonNull List<Animal> animals) {
         StringBuilder sb = new StringBuilder();
